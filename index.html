@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التسجيل في الدورة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-900:#2E1B4D;
+    --purple-800:#3C2566;
+    --purple-700:#4B2E83;
+    --purple-600:#5E3A9E;
+    --gold-600:#B8860B;
+    --gold-500:#D4A017;
+    --gold-400:#E8C452;
+    --cream:#FBF8F1;
+    --ink:#231A33;
+    --muted:#6E6480;
+    --line:#E4DEEF;
+    --error:#B23A3A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Cairo', sans-serif;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(212,160,23,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(75,46,131,.10), transparent 60%),
+      var(--cream);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 64px;
+  }
+  .wrap{
+    width:100%;
+    max-width:560px;
+  }
+  .band{
+    height:6px;
+    border-radius:6px;
+    background:linear-gradient(90deg, var(--purple-700), var(--gold-500), var(--purple-700));
+    margin-bottom:22px;
+  }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .crest{
+    width:92px;
+    height:92px;
+    margin:0 auto 14px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 0 4px var(--cream), 0 0 0 6px var(--gold-500);
+    overflow:hidden;
+  }
+  .crest img{width:80%;height:80%;object-fit:contain;}
+  .hero{
+    width:100%;
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:24px;
+    border:1px solid var(--line);
+    box-shadow:0 18px 40px -20px rgba(46,27,77,.25);
+  }
+  .hero img{width:100%; display:block;}
+  h1{
+    font-size:24px;
+    font-weight:900;
+    margin:0 0 6px;
+    color:var(--purple-800);
+  }
+  .sub{
+    font-size:14px;
+    color:var(--muted);
+    font-weight:600;
+    letter-spacing:.3px;
+  }
+  .gold-rule{
+    width:56px;
+    height:3px;
+    background:var(--gold-500);
+    border-radius:3px;
+    margin:14px auto 0;
+  }
+  form{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:30px 26px;
+    box-shadow:0 18px 40px -20px rgba(46,27,77,.25);
+  }
+  .field{
+    margin-bottom:20px;
+  }
+  label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    color:var(--purple-800);
+    margin-bottom:8px;
+  }
+  label .req{color:var(--gold-600); margin-inline-start:2px;}
+  input, select{
+    width:100%;
+    font-family:'Cairo', sans-serif;
+    font-size:15px;
+    padding:12px 14px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    background:#FBFAF7;
+    color:var(--ink);
+    transition:border-color .15s, box-shadow .15s, background .15s;
+  }
+  input::placeholder{color:#B3AAC2;}
+  input:focus, select:focus{
+    outline:none;
+    border-color:var(--purple-600);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(94,58,158,.12);
+  }
+  select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%234B2E83' stroke-width='2' fill='none' stroke-linecap='round'/></svg>"); background-repeat:no-repeat; background-position:left 14px center;}
+  .hint{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+  .error-msg{
+    font-size:12.5px;
+    color:var(--error);
+    margin-top:6px;
+    display:none;
+  }
+  .field.invalid input, .field.invalid select{
+    border-color:var(--error);
+  }
+  .field.invalid .error-msg{display:block;}
+  button{
+    width:100%;
+    font-family:'Cairo', sans-serif;
+    font-size:16px;
+    font-weight:700;
+    color:#fff;
+    background:linear-gradient(135deg, var(--purple-700), var(--purple-900));
+    border:none;
+    border-radius:12px;
+    padding:15px;
+    cursor:pointer;
+    transition:transform .12s, box-shadow .12s, opacity .12s;
+    box-shadow:0 10px 22px -10px rgba(46,27,77,.55);
+  }
+  button:hover{transform:translateY(-1px);}
+  button:active{transform:translateY(0) scale(.99);}
+  button:disabled{opacity:.6; cursor:not-allowed; transform:none;}
+  .status{
+    text-align:center;
+    margin-top:16px;
+    font-size:14px;
+    font-weight:600;
+    display:none;
+  }
+  .status.show{display:block;}
+  .status.ok{color:#1D6E4D;}
+  .status.fail{color:var(--error);}
+  .success-card{
+    display:none;
+    text-align:center;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:40px 26px;
+    box-shadow:0 18px 40px -20px rgba(46,27,77,.25);
+  }
+  .success-card.show{display:block;}
+  .success-icon{
+    width:64px;height:64px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:var(--gold-500);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .success-icon svg{width:30px;height:30px;}
+  .success-card h2{
+    color:var(--purple-800);
+    font-size:20px;
+    margin:0 0 8px;
+  }
+  .success-card p{
+    color:var(--muted);
+    font-size:14px;
+    margin:0;
+    line-height:1.7;
+  }
+  footer{
+    text-align:center;
+    margin-top:22px;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="band"></div>
+  <header>
+    <div class="crest">
+      <img src="LOGO_BASE64_PLACEHOLDER" alt="شعار السرية">
+    </div>
+    <h1>انضم إلى سريتنا</h1>
+    <div class="sub">سرية كشافة ومرشدات عروس الجليل</div>
+    <div class="gold-rule"></div>
+  </header>
+
+  <div class="hero">
+    <img src="GROUP_PHOTO_BASE64_PLACEHOLDER" alt="صورة جماعية لأعضاء السرية">
+  </div>
+
+  <form id="regForm" novalidate>
+    <div class="field" id="f-name">
+      <label for="fullName">الاسم الثلاثي <span class="req">*</span></label>
+      <input type="text" id="fullName" name="fullName" placeholder="مثال: سارة محمد أحمد">
+      <div class="error-msg">فضلاً أدخل الاسم الثلاثي كاملاً</div>
+    </div>
+
+    <div class="field" id="f-phone">
+      <label for="phone">رقم هاتف أحد الوالدين <span class="req">*</span></label>
+      <input type="tel" id="phone" name="phone" placeholder="05XXXXXXXX" inputmode="numeric">
+      <div class="error-msg">فضلاً أدخل رقم هاتف صحيح</div>
+    </div>
+
+    <div class="field" id="f-grade">
+      <label for="grade">الصف <span class="req">*</span></label>
+      <select id="grade" name="grade">
+        <option value="" disabled selected>اختر الصف</option>
+        <option value="روضة">روضة</option>
+        <option value="الأول">الأول</option>
+        <option value="الثاني">الثاني</option>
+        <option value="الثالث">الثالث</option>
+        <option value="الرابع">الرابع</option>
+        <option value="الخامس">الخامس</option>
+        <option value="السادس">السادس</option>
+        <option value="السابع">السابع</option>
+        <option value="الثامن">الثامن</option>
+        <option value="التاسع">التاسع</option>
+        <option value="العاشر">العاشر</option>
+        <option value="الحادي عشر">الحادي عشر</option>
+        <option value="الثاني عشر">الثاني عشر</option>
+      </select>
+      <div class="error-msg">فضلاً اختر الصف</div>
+    </div>
+
+    <div class="field" id="f-school">
+      <label for="school">المدرسة <span class="req">*</span></label>
+      <input type="text" id="school" name="school" placeholder="اسم المدرسة">
+      <div class="error-msg">فضلاً أدخل اسم المدرسة</div>
+    </div>
+
+    <button type="submit" id="submitBtn">إرسال التسجيل</button>
+    <div class="status" id="statusMsg"></div>
+  </form>
+
+  <div class="success-card" id="successCard">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#2E1B4D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>تم التسجيل بنجاح</h2>
+    <p>شكراً إلك! وصلنا طلب تسجيلك وبنتواصل معك قريباً بكل التفاصيل عن الدورة.</p>
+  </div>
+
+  <footer>لأي استفسار، تواصلوا معنا مباشرة</footer>
+</div>
+
+<script>
+  // ضع هون الرابط الناتج عن نشر Google Apps Script (خطوات النشر مرفقة بالتعليمات)
+  const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+
+  const form = document.getElementById('regForm');
+  const statusMsg = document.getElementById('statusMsg');
+  const submitBtn = document.getElementById('submitBtn');
+  const successCard = document.getElementById('successCard');
+
+  const fields = {
+    fullName: { el: document.getElementById('fullName'), wrap: document.getElementById('f-name'),
+      valid: v => v.trim().split(/\s+/).length >= 3 },
+    phone: { el: document.getElementById('phone'), wrap: document.getElementById('f-phone'),
+      valid: v => /^[0-9+\-\s]{9,13}$/.test(v.trim()) },
+    grade: { el: document.getElementById('grade'), wrap: document.getElementById('f-grade'),
+      valid: v => v.trim().length > 0 },
+    school: { el: document.getElementById('school'), wrap: document.getElementById('f-school'),
+      valid: v => v.trim().length >= 2 },
+  };
+
+  function validateField(key){
+    const f = fields[key];
+    const ok = f.valid(f.el.value);
+    f.wrap.classList.toggle('invalid', !ok);
+    return ok;
+  }
+
+  Object.keys(fields).forEach(key=>{
+    fields[key].el.addEventListener('blur', ()=>validateField(key));
+    fields[key].el.addEventListener('input', ()=>{
+      if(fields[key].wrap.classList.contains('invalid')) validateField(key);
+    });
+  });
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const allValid = Object.keys(fields).map(validateField).every(Boolean);
+    statusMsg.className = 'status';
+    statusMsg.textContent = '';
+
+    if(!allValid){
+      statusMsg.textContent = 'فضلاً راجع الحقول المطلوبة';
+      statusMsg.classList.add('show','fail');
+      return;
+    }
+
+    if(SCRIPT_URL.includes('PASTE_YOUR')){
+      statusMsg.textContent = 'لازم أولاً تربط الصفحة برابط Google Apps Script (شوف التعليمات)';
+      statusMsg.classList.add('show','fail');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'جاري الإرسال...';
+
+    const payload = {
+      fullName: fields.fullName.el.value.trim(),
+      phone: fields.phone.el.value.trim(),
+      grade: fields.grade.el.value,
+      school: fields.school.el.value.trim(),
+      timestamp: new Date().toLocaleString('ar-EG', { timeZone: 'Asia/Jerusalem' })
+    };
+
+    try{
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      form.style.display = 'none';
+      successCard.classList.add('show');
+    }catch(err){
+      statusMsg.textContent = 'صار في خطأ، جرب مرة ثانية';
+      statusMsg.classList.add('show','fail');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'إرسال التسجيل';
+    }
+  });
+</script>
+</body>
+</html>
