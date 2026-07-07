@@ -101,6 +101,14 @@
   .field{
     margin-bottom:20px;
   }
+  .row2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media (max-width:420px){
+    .row2{grid-template-columns:1fr;}
+  }
   label{
     display:block;
     font-size:14px;
@@ -204,6 +212,7 @@
     margin-top:22px;
     font-size:12.5px;
     color:var(--muted);
+    line-height:1.8;
   }
 </style>
 </head>
@@ -225,42 +234,84 @@
 
   <form id="regForm" novalidate>
     <div class="field" id="f-name">
-      <label for="fullName">الاسم الثلاثي <span class="req">*</span></label>
-      <input type="text" id="fullName" name="fullName" placeholder="مثال: سارة محمد أحمد">
+      <label for="fullName">اسم الولد الثلاثي <span class="req">*</span></label>
+      <input type="text" id="fullName" name="fullName" placeholder="مثال: أحمد محمد علي">
       <div class="error-msg">فضلاً أدخل الاسم الثلاثي كاملاً</div>
     </div>
 
-    <div class="field" id="f-phone">
-      <label for="phone">رقم هاتف أحد الوالدين <span class="req">*</span></label>
-      <input type="tel" id="phone" name="phone" placeholder="05XXXXXXXX" inputmode="numeric">
-      <div class="error-msg">فضلاً أدخل رقم هاتف صحيح</div>
+    <div class="field" id="f-id">
+      <label for="idNumber">رقم الهوية <span class="req">*</span></label>
+      <input type="text" id="idNumber" name="idNumber" placeholder="0XXXXXXXX" inputmode="numeric">
+      <div class="error-msg">فضلاً أدخل رقم هوية صحيح</div>
     </div>
 
-    <div class="field" id="f-grade">
-      <label for="grade">الصف <span class="req">*</span></label>
-      <select id="grade" name="grade">
-        <option value="" disabled selected>اختر الصف</option>
-        <option value="روضة">روضة</option>
-        <option value="الأول">الأول</option>
-        <option value="الثاني">الثاني</option>
-        <option value="الثالث">الثالث</option>
-        <option value="الرابع">الرابع</option>
-        <option value="الخامس">الخامس</option>
-        <option value="السادس">السادس</option>
-        <option value="السابع">السابع</option>
-        <option value="الثامن">الثامن</option>
-        <option value="التاسع">التاسع</option>
-        <option value="العاشر">العاشر</option>
-        <option value="الحادي عشر">الحادي عشر</option>
-        <option value="الثاني عشر">الثاني عشر</option>
-      </select>
-      <div class="error-msg">فضلاً اختر الصف</div>
+    <div class="row2">
+      <div class="field" id="f-fatherphone">
+        <label for="fatherPhone">رقم هاتف الأب <span class="req">*</span></label>
+        <input type="tel" id="fatherPhone" name="fatherPhone" placeholder="05XXXXXXXX" inputmode="numeric">
+        <div class="error-msg">أدخل رقم صحيح</div>
+      </div>
+
+      <div class="field" id="f-motherphone">
+        <label for="motherPhone">رقم هاتف الأم <span class="req">*</span></label>
+        <input type="tel" id="motherPhone" name="motherPhone" placeholder="05XXXXXXXX" inputmode="numeric">
+        <div class="error-msg">أدخل رقم صحيح</div>
+      </div>
     </div>
 
     <div class="field" id="f-school">
       <label for="school">المدرسة <span class="req">*</span></label>
       <input type="text" id="school" name="school" placeholder="اسم المدرسة">
       <div class="error-msg">فضلاً أدخل اسم المدرسة</div>
+    </div>
+
+    <div class="row2">
+      <div class="field" id="f-grade">
+        <label for="grade">الصف <span class="req">*</span></label>
+        <select id="grade" name="grade">
+          <option value="" disabled selected>اختر الصف</option>
+          <option value="روضة">روضة</option>
+          <option value="الأول">الأول</option>
+          <option value="الثاني">الثاني</option>
+          <option value="الثالث">الثالث</option>
+          <option value="الرابع">الرابع</option>
+          <option value="الخامس">الخامس</option>
+          <option value="السادس">السادس</option>
+          <option value="السابع">السابع</option>
+          <option value="الثامن">الثامن</option>
+          <option value="التاسع">التاسع</option>
+          <option value="العاشر">العاشر</option>
+          <option value="الحادي عشر">الحادي عشر</option>
+          <option value="الثاني عشر">الثاني عشر</option>
+        </select>
+        <div class="error-msg">فضلاً اختر الصف</div>
+      </div>
+
+      <div class="field" id="f-dob">
+        <label for="dob">تاريخ الميلاد <span class="req">*</span></label>
+        <input type="date" id="dob" name="dob">
+        <div class="error-msg">فضلاً أدخل تاريخ الميلاد</div>
+      </div>
+    </div>
+
+    <div class="field" id="f-shirt">
+      <label for="shirtSize">قياس البلوزة <span class="req">*</span></label>
+      <select id="shirtSize" name="shirtSize">
+        <option value="" disabled selected>اختر القياس</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
+        <option value="12">12</option>
+        <option value="14">14</option>
+        <option value="16">16</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+      <div class="error-msg">فضلاً اختر قياس البلوزة</div>
     </div>
 
     <button type="submit" id="submitBtn">إرسال التسجيل</button>
@@ -272,7 +323,7 @@
       <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#2E1B4D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <h2>تم التسجيل بنجاح</h2>
-    <p>شكراً إلك! وصلنا طلب تسجيلك وبنتواصل معك قريباً بكل التفاصيل عن لقائانا.</p>
+    <p>شكراً إلك! وصلنا طلب تسجيلك وبنتواصل معك قريباً بكل التفاصيل عن لقائاتنا.</p>
   </div>
 
   <footer>لأي استفسار، تواصلوا معنا أمينة نافع - سكرتيرة السرية 0527702142 وتابعونا على tamra.scout</footer>
@@ -280,7 +331,7 @@
 
 <script>
   // ضع هون الرابط الناتج عن نشر Google Apps Script (خطوات النشر مرفقة بالتعليمات)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCE2mP1h-tF1N4gmiBv--_dAuz7p2Tqg4w-V0BvGyiwauy-xQEG5Yg4bQPmkPMCSpCcQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEhKArnwcr6aH2d5V58-voL0_w8VQUb1Pc5DonxtfcxkPDTqESMhwxGPJCuFYjHOEn/exec";
 
   const form = document.getElementById('regForm');
   const statusMsg = document.getElementById('statusMsg');
@@ -290,12 +341,20 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCE2mP1h-tF1N4gmiBv
   const fields = {
     fullName: { el: document.getElementById('fullName'), wrap: document.getElementById('f-name'),
       valid: v => v.trim().split(/\s+/).length >= 3 },
-    phone: { el: document.getElementById('phone'), wrap: document.getElementById('f-phone'),
+    idNumber: { el: document.getElementById('idNumber'), wrap: document.getElementById('f-id'),
+      valid: v => /^[0-9]{5,9}$/.test(v.trim()) },
+    fatherPhone: { el: document.getElementById('fatherPhone'), wrap: document.getElementById('f-fatherphone'),
       valid: v => /^[0-9+\-\s]{9,13}$/.test(v.trim()) },
-    grade: { el: document.getElementById('grade'), wrap: document.getElementById('f-grade'),
-      valid: v => v.trim().length > 0 },
+    motherPhone: { el: document.getElementById('motherPhone'), wrap: document.getElementById('f-motherphone'),
+      valid: v => /^[0-9+\-\s]{9,13}$/.test(v.trim()) },
     school: { el: document.getElementById('school'), wrap: document.getElementById('f-school'),
       valid: v => v.trim().length >= 2 },
+    grade: { el: document.getElementById('grade'), wrap: document.getElementById('f-grade'),
+      valid: v => v.trim().length > 0 },
+    dob: { el: document.getElementById('dob'), wrap: document.getElementById('f-dob'),
+      valid: v => v.trim().length > 0 },
+    shirtSize: { el: document.getElementById('shirtSize'), wrap: document.getElementById('f-shirt'),
+      valid: v => v.trim().length > 0 },
   };
 
   function validateField(key){
@@ -308,6 +367,9 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCE2mP1h-tF1N4gmiBv
   Object.keys(fields).forEach(key=>{
     fields[key].el.addEventListener('blur', ()=>validateField(key));
     fields[key].el.addEventListener('input', ()=>{
+      if(fields[key].wrap.classList.contains('invalid')) validateField(key);
+    });
+    fields[key].el.addEventListener('change', ()=>{
       if(fields[key].wrap.classList.contains('invalid')) validateField(key);
     });
   });
@@ -335,9 +397,13 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCE2mP1h-tF1N4gmiBv
 
     const payload = {
       fullName: fields.fullName.el.value.trim(),
-      phone: fields.phone.el.value.trim(),
-      grade: fields.grade.el.value,
+      idNumber: fields.idNumber.el.value.trim(),
+      fatherPhone: fields.fatherPhone.el.value.trim(),
+      motherPhone: fields.motherPhone.el.value.trim(),
       school: fields.school.el.value.trim(),
+      grade: fields.grade.el.value,
+      dob: fields.dob.el.value,
+      shirtSize: fields.shirtSize.el.value,
       timestamp: new Date().toLocaleString('ar-EG', { timeZone: 'Asia/Jerusalem' })
     };
 
